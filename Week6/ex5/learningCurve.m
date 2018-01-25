@@ -58,8 +58,17 @@ for i = 1:m
 	
 	[theta] = trainLinearReg(X(1:i, :), y(1:i), lambda);
 	
-	error_train(i) = linearRegCostFunction(X(1:i, :), y(1:i), theta, 0);
-	error_val(i)   = linearRegCostFunction(Xval, yval, theta, 0);
+	%error_train(i) = linearRegCostFunction(X(1:i, :), y(1:i), theta, 0);
+	%error_val(i)   = linearRegCostFunction(Xval, yval, theta, 0);
+	
+	m_train = length(y(1:i));
+	h0x_train = X(1:i, :) * theta;
+	error_train(i) = (1/(2*m_train)) * sum((h0x_train - y(1:i)).^2);
+	
+	m_val = length(yval);
+	h0x_val = Xval * theta;
+	error_val(i) = (1/(2*m_val)) * sum((h0x_val - yval).^2);
+	
 end
 
 
